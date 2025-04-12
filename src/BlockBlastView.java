@@ -3,6 +3,7 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferStrategy;
+import java.util.ArrayList;
 
 public class BlockBlastView extends JFrame {
     // Instance Variables
@@ -32,5 +33,13 @@ public class BlockBlastView extends JFrame {
         g.drawImage(background, 0, 0, WINDOW_WIDTH, WINDOW_HEIGHT, this);
         // Drawing the board
         g.drawImage(board, 0, 100, WINDOW_WIDTH, WINDOW_HEIGHT - 300, this);
+
+        // Saving the three blocks at the beggining of each round and drawing them AS LONG AS NOT NULL
+        if (game.getStage() == 2){
+            ArrayList<Block> threePieces = game.getThreePieces();
+            for(Block block: threePieces){
+                block.draw(g);
+            }
+        }
     }
 }
