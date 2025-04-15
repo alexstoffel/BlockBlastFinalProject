@@ -8,15 +8,14 @@ public class Block {
     // Top left and right corners
     private int x;
     private int y;
-    // Has it been placed yet? 0-2 means not placed yet, 3 means placed)
-    int placed;
+    private static final int size = 5;
+    private static final int SQUARE_SIZE = 30;
 
     // Constructor
     public Block(int[][] piece, int x, int y){
         this.piece = piece;
         this.x = x;
         this.y = y;
-        this.placed = 0;
     }
 
     // Changing x and y
@@ -27,23 +26,21 @@ public class Block {
         this.y = y;
     }
 
-    // Changing placed
-    public void setPlaced(int placed) {
-        this.placed = placed;
-    }
-
     // Draw method
     public void draw(Graphics g){
         // If the piece hasnt been placed yet
-        if (this.placed < 3){
-            // Need to make this draw image
-            g.setColor(Color.WHITE);
-            g.setFont(new Font("arial", Font.PLAIN, 20));
-            // NOTE_ THIS IS JUST FOR TESTING
-            g.drawString("hello"+placed, 600, 100 + 50*placed);
-            System.out.println("hello");
 
+        g.setColor(Color.WHITE);
+        this.x = 100;
+        this.y = 600;
+        // Drawing the block
+        for (int i = 0; i < size; i++){
+            for( int j = 0; j < size; j++){
+                if (this.piece[i][j] == 1){
+                    // Draw the block
+                    g.drawRect(x + SQUARE_SIZE * j, y + SQUARE_SIZE * i, SQUARE_SIZE, SQUARE_SIZE);
+                }
+            }
         }
-
     }
 }
