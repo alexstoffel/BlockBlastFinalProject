@@ -1,10 +1,13 @@
 // Alex Stoffel
 // This class if my backend
 
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
 import java.sql.Array;
 import java.util.ArrayList;
 
-public class BlockBlast {
+public class BlockBlast implements MouseListener, MouseMotionListener {
     // Instance variables
     private int[][] board;
     private BlockBlastView window;
@@ -149,6 +152,59 @@ public class BlockBlast {
     public ArrayList<Block> getUnplacedPieces(){
         return this.unplacedPieces;
     }
+
+    // Methods for mouth listener
+    @Override
+    public void mouseClicked(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mousePressed(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseExited(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseDragged(MouseEvent e) {
+        // Have pieces follow the dragging mouse
+        int x = e.getX();
+        int y = e.getY();
+
+        // Check each block if it is being dragged currently
+        for (Block block : this.unplacedPieces){
+            if(block.isClicked(x, y)){
+                block.setX(x);
+                block.setY(y);
+                System.out.println("dragged");
+                window.repaint();
+            }
+
+        }
+
+
+    }
+
+    @Override
+    public void mouseMoved(MouseEvent e) {
+
+    }
+
+    //
 
 
 }
