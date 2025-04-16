@@ -114,10 +114,8 @@ public class BlockBlast {
         this.stage = 2;
 
         while (gameOver == false){
-            // Set the three blocks for the beggining of each round
-            Block block = this.getThreePieces();
-            // Adding block to unplaced pieces
-            unplacedPieces.add(block);
+            // Setting the three unplaced pieces
+            unplacedPieces = this.getThreePieces();
             window.repaint();
             // PICK UP HERE
             gameOver = true;
@@ -128,8 +126,14 @@ public class BlockBlast {
 
 
     // Note - this should return an ArrayList but right now is just one block
-    public Block getThreePieces() {
-        return pieces.get(0);
+    public ArrayList<Block> getThreePieces() {
+        // ArrayList that will store them
+        ArrayList<Block> p = new ArrayList<Block>(3);
+        // For loop that will run through 3 times
+        for (int i = 0; i < 3; i++){
+            p.add(this.pieces.get((int)(Math.random() * this.pieces.size())));
+        }
+        return p;
     }
 
     public static void main(String[] args) {

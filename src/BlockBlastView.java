@@ -37,8 +37,11 @@ public class BlockBlastView extends JFrame {
         // Saving the three blocks at the beggining of each round and drawing them AS LONG AS NOT NULL
         if (game.getStage() == 2){
             ArrayList<Block> threePieces = game.getUnplacedPieces();
-            for(Block block: threePieces){
-                block.draw(g);
+            for(int i = 0; i < 3; i++){
+                // Set the state so it knows where to draw itself
+                threePieces.get(i).setState(i);
+                // Draw the block
+                threePieces.get(i).draw(g);
             }
         }
     }
