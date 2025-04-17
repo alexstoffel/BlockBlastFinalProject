@@ -13,6 +13,7 @@ public class Block {
     // This wil be a stage tells it where it will be placed
     private int state;
     private boolean isPlaced;
+    private boolean isBeingDragged;
 
     // Constructor
     public Block(int[][] piece, int x, int y){
@@ -21,6 +22,7 @@ public class Block {
         this.y = y;
         this.state = 0;
         this.isPlaced = false;
+        this.isBeingDragged = false;
     }
 
     // Changing x and y
@@ -41,6 +43,15 @@ public class Block {
         return isPlaced;
     }
 
+    // Getter and setter for the is being dragged variable
+    public boolean isBeingDragged() {
+        return isBeingDragged;
+    }
+
+    public void setIsBeingDragged(boolean dragged) {
+        this.isBeingDragged = dragged;
+    }
+
     // Is Clicked Method && placed false
     public boolean isClicked(int mouse_x, int mouse_y){
         // Must be clicked from the top left of the box
@@ -55,12 +66,20 @@ public class Block {
 
     // Draw method
     public void draw(Graphics g){
-        // If the piece hasn't been placed yet
-
         g.setColor(Color.WHITE);
-        this.x = 50 + 155*this.state;
-        this.y = 600;
-        // Drawing the block
+        // If the piece hasn't been placed yet
+        if (this.state < 3){
+            // Setting it to the correct place in the unplaced pieces board
+            this.x = 50 + 155*this.state;
+            this.y = 600;
+            drawSquare(g, this.x, this.y);
+        }else if(state == 3){ // This means that it has been placed
+            drawSquare(g, this.x, this.y);
+        }
+    }
+
+    // Drawing the block
+    public void drawSquare(Graphics g, int x, int y){
         for (int i = 0; i < size; i++){
             for( int j = 0; j < size; j++){
                 if (this.piece[i][j] == 1){

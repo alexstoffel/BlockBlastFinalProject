@@ -17,14 +17,27 @@ public class BlockBlast implements MouseListener, MouseMotionListener {
     private boolean gameOver;
     private int stage;
     private ArrayList<Block> unplacedPieces;
+    // This variable accounts for the block currently being dragged
+    private Block blockBeingDragged;
+    private static final int BOARD_SQUARE_SIZE = 55;
+    private static final int BOARD_TOP_X = 30;
+    private static final int BOARD_TOP_Y = 130;
+
 
 
     // Constructor
     public BlockBlast(){
         window = new BlockBlastView(this);
+
+        // Adding the mouse thing
+        window.addMouseListener(this);
+        window.addMouseMotionListener(this);
+
+        // Initializing all the variables
         gameOver = false;
         stage = 1;
         unplacedPieces = new ArrayList<Block>();
+        blockBeingDragged = null;
 
         // Creating and filling in the board
         board = new int[BOARD_SIZE][BOARD_SIZE];
@@ -135,6 +148,8 @@ public class BlockBlast implements MouseListener, MouseMotionListener {
         // For loop that will run through 3 times
         for (int i = 0; i < 3; i++){
             p.add(this.pieces.get((int)(Math.random() * this.pieces.size())));
+            // Set the state so it knows where to draw itself
+            p.get(i).setState(i);
         }
         return p;
     }
@@ -161,12 +176,45 @@ public class BlockBlast implements MouseListener, MouseMotionListener {
 
     @Override
     public void mousePressed(MouseEvent e) {
+        // Set the block being dragged variable
+        int x = e.getX();
+        int y = e.getY();
 
+        // Loop through all the blocks
+        for (Block block: unplacedPieces){
+            if (block.isClicked(x, y)){
+                blockBeingDragged = block;
+                block.setIsBeingDragged(true);
+            }
+        }
     }
 
     @Override
     public void mouseReleased(MouseEvent e) {
+        // If the block is placed in a valid spot
+        int x = e.getX();
+        int y = e.getY();
+        // Find what square this is a part of and click it into place and set X and Y to the top left corner of that square
+        x = (x - BOARD_TOP_X) / 55;
+        y = (y - BOARD_TOP_Y) / 55;
+        // CLick the piece into place
+        blockBeingDragged.setX(x);
+        blockBeingDragged.setY(y);
+        window.repaint();
 
+        // Remove block being dragged from the unplaced pieces
+//        for (int i = 0; i < unplacedPieces.size(); i++){
+//            if(unplacedPieces.get(i).equals(blockBeingDragged)){
+//                // Set the square to null
+//                unplacedPieces.set(i, null);
+//                break;
+//            }
+//        }
+
+
+        // Set the is being dragged to false
+        this.blockBeingDragged.setIsBeingDragged(false);
+        this.blockBeingDragged = null;
     }
 
     @Override
@@ -184,10 +232,14 @@ public class BlockBlast implements MouseListener, MouseMotionListener {
         // Have pieces follow the dragging mouse
         int x = e.getX();
         int y = e.getY();
+        System.out.println("Beginning of drag");
 
         // Check each block if it is being dragged currently
         for (Block block : this.unplacedPieces){
-            if(block.isClicked(x, y)){
+            if(block.isBeingDragged()){
+                // This means it is no longer an "unplaced piece"
+                block.setState(3);
+                // Updating where the box is to where the mouse is
                 block.setX(x);
                 block.setY(y);
                 System.out.println("dragged");
