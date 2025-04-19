@@ -8,7 +8,7 @@ public class Block {
     // Top left and right corners
     private int x;
     private int y;
-    private static final int size = 5;
+    private static final int PIECE_SIZE = 5;
     private static final int SQUARE_SIZE = 55;
     // This wil be a stage tells it where it will be placed
     private int state;
@@ -23,6 +23,11 @@ public class Block {
         this.state = 0;
         this.isPlaced = false;
         this.isBeingDragged = false;
+    }
+
+    // Accessing the piece
+    public int getPiece(int row, int col){
+        return this.piece[row][col];
     }
 
     // Changing x and y
@@ -63,6 +68,20 @@ public class Block {
         return false;
     }
 
+    // Access to the state of the piece
+    public int getState(){
+        return this.state;
+    }
+
+    // Set is placed yet
+    public void setPlaced(Boolean bool){
+        this.isPlaced = bool;
+    }
+
+    // Getting access to the 2d array and the design
+    public int[][] getBlock(){
+        return this.piece;
+    }
 
     // Draw method
     public void draw(Graphics g){
@@ -80,8 +99,8 @@ public class Block {
 
     // Drawing the block
     public void drawSquare(Graphics g, int x, int y){
-        for (int i = 0; i < size; i++){
-            for( int j = 0; j < size; j++){
+        for (int i = 0; i < PIECE_SIZE; i++){
+            for( int j = 0; j < PIECE_SIZE; j++){
                 if (this.piece[i][j] == 1){
                     // Draw the block
                     g.drawRect(x + SQUARE_SIZE * j, y + SQUARE_SIZE * i, SQUARE_SIZE, SQUARE_SIZE);

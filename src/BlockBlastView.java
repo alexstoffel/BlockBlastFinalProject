@@ -2,7 +2,6 @@
 // This Class is my front end
 import javax.swing.*;
 import java.awt.*;
-import java.awt.image.BufferStrategy;
 import java.util.ArrayList;
 
 public class BlockBlastView extends JFrame {
@@ -13,6 +12,11 @@ public class BlockBlastView extends JFrame {
     private Image[] pieces;
     private static final int WINDOW_WIDTH = 500;
     private static final int WINDOW_HEIGHT = 800;
+    private static final int BOARD_TOP_X = 30;
+    private static final int BOARD_TOP_Y = 130;
+    private static final int BOARD_SIZE = 8;
+    private static final int SQUARE_SIZE = 55;
+
 
     // Constructor
     public BlockBlastView(BlockBlast b){
@@ -33,14 +37,46 @@ public class BlockBlastView extends JFrame {
         g.drawImage(background, 0, 0, WINDOW_WIDTH, WINDOW_HEIGHT, this);
         // Drawing the board
         g.drawImage(board, 0, 100, WINDOW_WIDTH, WINDOW_HEIGHT - 300, this);
-        g.drawRect(30, 130, 5,5);
 
         // Saving the three blocks at the beggining of each round and drawing them AS LONG AS NOT NULL
         if (game.getStage() == 2){
             ArrayList<Block> threePieces = game.getUnplacedPieces();
             for(int i = 0; i < 3; i++){
-                // Draw the block
-                threePieces.get(i).draw(g);
+                // Draw the block only if it is unplaced
+                if (threePieces.get(i).isPlaced() == false) {
+                    threePieces.get(i).draw(g);
+                }
+            }
+        }
+
+        // Paint the board if it is not null
+        if (game.getBoard() != null) {
+            paintBoard(g);
+        }
+
+        // Print Game Over if Game is Over
+        if (game.checkGameOver()){
+            g.setFont(new Font("arial", Font.PLAIN, 50));
+            g.setColor(Color.WHITE);
+            g.drawString("GAME OVER", 50, 600);
+        }
+    }
+
+    // This method will paint the current board
+    public void paintBoard(Graphics g){
+        int[][] board = game.getBoard();
+
+        // Print out the board
+        for (int i = 0; i < BOARD_SIZE; i++){
+            for (int j = 0; j < BOARD_SIZE; j++){
+                // If it is a filled square
+                if (board[i][j] == 1) {
+                    // Drawing the squares
+                    g.setColor(Color.RED);
+                    g.fillRect(BOARD_TOP_X + j * SQUARE_SIZE, BOARD_TOP_Y + i * SQUARE_SIZE, SQUARE_SIZE, SQUARE_SIZE);
+                    g.setColor(Color.WHITE);
+                    g.drawRect(BOARD_TOP_X + j * SQUARE_SIZE, BOARD_TOP_Y + i * SQUARE_SIZE, SQUARE_SIZE, SQUARE_SIZE);
+                }
             }
         }
     }
