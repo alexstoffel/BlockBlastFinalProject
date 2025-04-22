@@ -10,12 +10,13 @@ public class BlockBlastView extends JFrame {
     private Image background;
     private Image board;
     private Image[] pieces;
-    private static final int WINDOW_WIDTH = 500;
+    private static final int WINDOW_WIDTH = 800;
     private static final int WINDOW_HEIGHT = 800;
     private static final int BOARD_TOP_X = 30;
     private static final int BOARD_TOP_Y = 130;
     private static final int BOARD_SIZE = 8;
     private static final int SQUARE_SIZE = 55;
+    private static final int BOARD_WIDTH = 500;
 
 
     // Constructor
@@ -36,14 +37,14 @@ public class BlockBlastView extends JFrame {
         // Drawing the main background
         g.drawImage(background, 0, 0, WINDOW_WIDTH, WINDOW_HEIGHT, this);
         // Drawing the board
-        g.drawImage(board, 0, 100, WINDOW_WIDTH, WINDOW_HEIGHT - 300, this);
+        g.drawImage(board, 0, 100, BOARD_WIDTH, WINDOW_HEIGHT - 300, this);
 
         // Saving the three blocks at the beggining of each round and drawing them AS LONG AS NOT NULL
         if (game.getStage() == 2){
             ArrayList<Block> threePieces = game.getUnplacedPieces();
             for(int i = 0; i < 3; i++){
                 // Draw the block only if it is unplaced
-                if (threePieces.get(i).isPlaced() == false) {
+                if (threePieces.get(i) != null && !threePieces.get(i).isPlaced()) {
                     threePieces.get(i).draw(g);
                 }
             }
@@ -54,8 +55,8 @@ public class BlockBlastView extends JFrame {
             paintBoard(g);
         }
 
-        // Print Game Over if Game is Over
-        if (game.checkGameOver()){
+        // Print Game Over if Game is Over if it is a valid time to do so
+        if (game.getUnplacedPieces() != null && game.checkGameOver()){
             g.setFont(new Font("arial", Font.PLAIN, 50));
             g.setColor(Color.WHITE);
             g.drawString("GAME OVER", 50, 600);

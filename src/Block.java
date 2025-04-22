@@ -25,6 +25,18 @@ public class Block {
         this.isBeingDragged = false;
     }
 
+    // Is Clicked Method && placed false
+    public boolean isClicked(int mouse_x, int mouse_y){
+        // Must be clicked from the top left of the box
+        if (this.x < mouse_x && this.x + SQUARE_SIZE > mouse_x){
+            if ((this.y < mouse_y && this.y + SQUARE_SIZE > mouse_y) && !this.isPlaced){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    // Getters and Setters
     // Accessing the piece
     public int getPiece(int row, int col){
         return this.piece[row][col];
@@ -55,17 +67,6 @@ public class Block {
 
     public void setIsBeingDragged(boolean dragged) {
         this.isBeingDragged = dragged;
-    }
-
-    // Is Clicked Method && placed false
-    public boolean isClicked(int mouse_x, int mouse_y){
-        // Must be clicked from the top left of the box
-        if (this.x < mouse_x && this.x + SQUARE_SIZE > mouse_x){
-            if ((this.y < mouse_y && this.y + SQUARE_SIZE > mouse_y) && !this.isPlaced){
-                return true;
-            }
-        }
-        return false;
     }
 
     // Access to the state of the piece
