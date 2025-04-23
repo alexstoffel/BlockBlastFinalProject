@@ -9,7 +9,8 @@ public class BlockBlastView extends JFrame {
     private BlockBlast game;
     private Image background;
     private Image board;
-    private Image[] pieces;
+    // Array of colors
+    private Color[][] colors;
     private static final int WINDOW_WIDTH = 800;
     private static final int WINDOW_HEIGHT = 800;
     private static final int BOARD_TOP_X = 30;
@@ -17,6 +18,7 @@ public class BlockBlastView extends JFrame {
     private static final int BOARD_SIZE = 8;
     private static final int SQUARE_SIZE = 55;
     private static final int BOARD_WIDTH = 500;
+    private Color[] gameColors;
 
 
     // Constructor
@@ -24,6 +26,9 @@ public class BlockBlastView extends JFrame {
         this.game = b;
         board = new ImageIcon("Resources/blockBlastBackground.png").getImage();
         background = new ImageIcon("Resources/mainbackgroundColor.png").getImage();
+        this.colors = new Color[8][8];
+        // THis will give me ineteresting colors for fonts
+        this.gameColors = new Color[]{Color.RED, Color.ORANGE, Color.YELLOW, Color.GREEN, Color.CYAN, Color.MAGENTA};
 
         // Initialize everything that happens
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -55,6 +60,15 @@ public class BlockBlastView extends JFrame {
             paintBoard(g);
         }
 
+        // Print our the score
+        String score = "SCORE= " + game.getScore();
+        g.setFont(new Font("roboto", Font.BOLD, 40));
+        for (int i = 0; i < score.length(); i++){
+            // Get the multicolor part (this looks cool)
+            g.setColor(gameColors[i % gameColors.length]);
+            g.drawString(score.substring(i, i + 1), 510 + i * 25, 200);
+        }
+
         // Print Game Over if Game is Over if it is a valid time to do so
         if (game.getUnplacedPieces() != null && game.checkGameOver()){
             g.setFont(new Font("arial", Font.PLAIN, 50));
@@ -73,7 +87,7 @@ public class BlockBlastView extends JFrame {
                 // If it is a filled square
                 if (board[i][j] == 1) {
                     // Drawing the squares
-                    g.setColor(Color.RED);
+                    g.setColor(colors[i][j]);
                     g.fillRect(BOARD_TOP_X + j * SQUARE_SIZE, BOARD_TOP_Y + i * SQUARE_SIZE, SQUARE_SIZE, SQUARE_SIZE);
                     g.setColor(Color.WHITE);
                     g.drawRect(BOARD_TOP_X + j * SQUARE_SIZE, BOARD_TOP_Y + i * SQUARE_SIZE, SQUARE_SIZE, SQUARE_SIZE);
@@ -81,4 +95,10 @@ public class BlockBlastView extends JFrame {
             }
         }
     }
+
+    // Setter which will change colors of the blocks
+    public void setColor(int row, int col, Color c){
+        this.colors[row][col] = c;
+    }
+
 }

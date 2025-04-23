@@ -12,6 +12,8 @@ public class BlockBlast implements MouseListener, MouseMotionListener {
     private BlockBlastView window;
     private static final int BOARD_SIZE = 8;
     private static final int PIECE_SIZE = 5;
+    private static final int WINDOW_WIDTH = 800;
+    private static final int WINDOW_HEIGHT = 800;
     private ArrayList<Block> pieces;
     private boolean gameOver;
     private int stage;
@@ -21,11 +23,14 @@ public class BlockBlast implements MouseListener, MouseMotionListener {
     private int blockBeingDragged_InitialState;
     private static final int BOARD_TOP_X = 30;
     private static final int BOARD_TOP_Y = 130;
+    private int score;
+    private int numBlasts;
 
 
 
     // Constructor
     public BlockBlast(){
+        this.score = 0; // This is important to have here because I want score printed out immediately
         window = new BlockBlastView(this);
 
         // Adding the mouse thing
@@ -58,10 +63,24 @@ public class BlockBlast implements MouseListener, MouseMotionListener {
                 {0, 0, 0, 0, 0},
         }, 0,0));
         pieces.add(new Block(new int[][]{
+                {1, 0, 0, 0, 0},
+                {1, 0, 0, 0, 0},
+                {1, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0},
+        }, 0,0));
+        pieces.add(new Block(new int[][]{
                 {1, 1, 1, 1, 0},
                 {0, 0, 0, 0, 0},
                 {0, 0, 0, 0, 0},
                 {0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0},
+        }, 0,0));
+        pieces.add(new Block(new int[][]{
+                {1, 0, 0, 0, 0},
+                {1, 0, 0, 0, 0},
+                {1, 0, 0, 0, 0},
+                {1, 0, 0, 0, 0},
                 {0, 0, 0, 0, 0},
         }, 0,0));
         pieces.add(new Block(new int[][]{
@@ -72,6 +91,13 @@ public class BlockBlast implements MouseListener, MouseMotionListener {
                 {0, 0, 0, 0, 0},
         }, 0,0));
         pieces.add(new Block(new int[][]{
+                {1, 0, 0, 0, 0},
+                {1, 0, 0, 0, 0},
+                {1, 0, 0, 0, 0},
+                {1, 0, 0, 0, 0},
+                {1, 0, 0, 0, 0},
+        }, 0,0));
+        pieces.add(new Block(new int[][]{
                 {1, 1, 0, 0, 0},
                 {0, 1, 1, 0, 0},
                 {0, 0, 0, 0, 0},
@@ -79,9 +105,23 @@ public class BlockBlast implements MouseListener, MouseMotionListener {
                 {0, 0, 0, 0, 0},
         }, 0,0));
         pieces.add(new Block(new int[][]{
+                {0, 1, 1, 0, 0},
+                {1, 1, 0, 0, 0},
+                {0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0},
+        }, 0,0));
+        pieces.add(new Block(new int[][]{
                 {1, 0, 0, 0, 0},
                 {1, 1, 0, 0, 0},
                 {0, 1, 0, 0, 0},
+                {0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0},
+        }, 0,0));
+        pieces.add(new Block(new int[][]{
+                {0, 1, 0, 0, 0},
+                {1, 1, 0, 0, 0},
+                {1, 0, 0, 0, 0},
                 {0, 0, 0, 0, 0},
                 {0, 0, 0, 0, 0},
         }, 0,0));
@@ -93,7 +133,21 @@ public class BlockBlast implements MouseListener, MouseMotionListener {
                 {0, 0, 0, 0, 0},
         }, 0,0));
         pieces.add(new Block(new int[][]{
+                {1, 1, 0, 0, 0},
                 {0, 1, 0, 0, 0},
+                {0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0},
+        }, 0,0));
+        pieces.add(new Block(new int[][]{
+                {0, 1, 0, 0, 0},
+                {1, 1, 0, 0, 0},
+                {0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0},
+        }, 0,0));
+        pieces.add(new Block(new int[][]{
+                {1, 0, 0, 0, 0},
                 {1, 1, 0, 0, 0},
                 {0, 0, 0, 0, 0},
                 {0, 0, 0, 0, 0},
@@ -107,6 +161,27 @@ public class BlockBlast implements MouseListener, MouseMotionListener {
                 {0, 0, 0, 0, 0},
         }, 0,0));
         pieces.add(new Block(new int[][]{
+                {1, 1, 1, 0, 0},
+                {0, 0, 1, 0, 0},
+                {0, 0, 1, 0, 0},
+                {0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0},
+        }, 0,0));
+        pieces.add(new Block(new int[][]{
+                {0, 0, 1, 0, 0},
+                {0, 0, 1, 0, 0},
+                {1, 1, 1, 0, 0},
+                {0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0},
+        }, 0,0));
+        pieces.add(new Block(new int[][]{
+                {1, 0, 0, 0, 0},
+                {1, 0, 0, 0, 0},
+                {1, 1, 1, 0, 0},
+                {0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0},
+        }, 0,0));
+        pieces.add(new Block(new int[][]{
                 {1, 1, 0, 0, 0},
                 {1, 0, 0, 0, 0},
                 {1, 0, 0, 0, 0},
@@ -114,9 +189,86 @@ public class BlockBlast implements MouseListener, MouseMotionListener {
                 {0, 0, 0, 0, 0},
         }, 0,0));
         pieces.add(new Block(new int[][]{
+                {1, 1, 0, 0, 0},
+                {0, 1, 0, 0, 0},
+                {0, 1, 0, 0, 0},
+                {0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0},
+        }, 0,0));
+        pieces.add(new Block(new int[][]{
                 {1, 1, 1, 0, 0},
                 {1, 0, 0, 0, 0},
                 {0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0},
+        }, 0,0));
+        pieces.add(new Block(new int[][]{
+                {1, 1, 1, 0, 0},
+                {0, 0, 1, 0, 0},
+                {0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0},
+        }, 0,0));
+        pieces.add(new Block(new int[][]{
+                {1, 0, 0, 0, 0},
+                {1, 1, 1, 0, 0},
+                {0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0},
+        }, 0,0));
+        pieces.add(new Block(new int[][]{
+                {0, 0, 1, 0, 0},
+                {1, 1, 1, 0, 0},
+                {0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0},
+        }, 0,0));
+        pieces.add(new Block(new int[][]{
+                {1, 0, 0, 0, 0},
+                {1, 0, 0, 0, 0},
+                {1, 1, 0, 0, 0},
+                {0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0},
+        }, 0,0));
+        pieces.add(new Block(new int[][]{
+                {0, 1, 0, 0, 0},
+                {0, 1, 0, 0, 0},
+                {1, 1, 0, 0, 0},
+                {0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0},
+        }, 0,0));
+        pieces.add(new Block(new int[][]{
+                {1, 1, 1, 0, 0},
+                {1, 1, 1, 0, 0},
+                {1, 1, 1, 0, 0},
+                {0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0},
+        }, 0,0));
+        pieces.add(new Block(new int[][]{
+                {1, 1, 1, 0, 0},
+                {0, 1, 0, 0, 0},
+                {0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0},
+        }, 0,0));
+        pieces.add(new Block(new int[][]{
+                {0, 1, 0, 0, 0},
+                {1, 1, 1, 0, 0},
+                {0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0},
+        }, 0,0));
+        pieces.add(new Block(new int[][]{
+                {1, 0, 0, 0, 0},
+                {1, 1, 0, 0, 0},
+                {1, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0},
+        }, 0,0));
+        pieces.add(new Block(new int[][]{
+                {0, 1, 0, 0, 0},
+                {1, 1, 0, 0, 0},
+                {0, 1, 0, 0, 0},
                 {0, 0, 0, 0, 0},
                 {0, 0, 0, 0, 0},
         }, 0,0));
@@ -182,26 +334,24 @@ public class BlockBlast implements MouseListener, MouseMotionListener {
 
     // This method will check if the spot is valid
     public boolean isValid(Block b, int col, int row){
-        // This will create a replica board which is bigger than normal board to make sure it works
-        int[][] rep_board = new int[14][14];
-        for(int i = 0; i < PIECE_SIZE; i++){
-            for(int j = 0; j < PIECE_SIZE; j++){
-                rep_board[i+row][j+col] = b.getPiece(i, j);
-            }
-        }
-
-        // This will check if it goes out of bounds
-        for (int i = 0; i < 9; i++){
-            if (rep_board[i][8] == 1 || rep_board[8][i] == 1){
-                return false;
-            }
-        }
-
-        // For loops which will go through and check if there are any copies and will determine if valid spot
+        // Check for out of bounds errors
         for (int i = 0; i < PIECE_SIZE; i++){
             for (int j = 0; j < PIECE_SIZE; j++){
-                if (b.getPiece(i, j) + this.board[i + row][j + col] == 2){
-                    return false;
+                if (b.getPiece(i, j) == 1){
+                    // Only check for cells that have value of 1 (are prt of the shape)
+                    int board_row = i + row;
+                    int board_col = j + col;
+
+                    // Check if it is out of bounds
+                    if (board_row < 0 || board_row >= BOARD_SIZE || board_col < 0 || board_col >= BOARD_SIZE){
+                        return false;
+                    }
+
+                    // Check for overlap
+                    if (this.board[board_row][board_col] == 1){
+                        return false;
+                    }
+
                 }
             }
         }
@@ -215,6 +365,10 @@ public class BlockBlast implements MouseListener, MouseMotionListener {
                 // Only add it if it holds a value
                 if (b.getPiece(i,j) == 1) {
                     this.board[i + row][j + col] = b.getPiece(i, j);
+                    // Add to the score
+                    this.score += 1;
+                    // Add the color to the block on the board
+                    window.setColor(i + row, j + col, b.getColor());
                 }
             }
         }
@@ -224,6 +378,8 @@ public class BlockBlast implements MouseListener, MouseMotionListener {
     public void checkBlast(){
         int rowSum = 0;
         int colSum = 0;
+        // This will effect the score -- the more blasts per block the more points
+        this.numBlasts = 0;
 
         // For loops to iterate through the board and check for a blast
         for (int i = 0; i < BOARD_SIZE; i++){
@@ -237,10 +393,12 @@ public class BlockBlast implements MouseListener, MouseMotionListener {
             // Check if either colSum or rowSum is equal to eight, meaning a blast must happen
             if (colSum >= 8){
                 // Blast the col
+                this.numBlasts += 1;
                 this.blast("col", i);
             }
             if (rowSum >= 8){
                 // Blast the row
+                this.numBlasts += 1;
                 this.blast("row", i);
             }
         }
@@ -262,6 +420,13 @@ public class BlockBlast implements MouseListener, MouseMotionListener {
                 board[num][i] = 0;
             }
         }
+        // Change the score
+        score += 8 * numBlasts;
+    }
+
+    // Get the score
+    public int getScore(){
+        return this.score;
     }
 
     // Get the game stage
@@ -373,9 +538,10 @@ public class BlockBlast implements MouseListener, MouseMotionListener {
             if(block.isBeingDragged()){
                 // This means it is no longer an "unplaced piece"
                 block.setState(3);
-                // Updating where the box is to where the mouse is
-                block.setX(x);
-                block.setY(y);
+                // Updating where the box is to where the mouse is (it will follow mouse off the window too)
+                block.setX(Math.max(0, Math.min(x, WINDOW_WIDTH)));
+                block.setY(Math.max(0, Math.min(y, WINDOW_HEIGHT)));
+
                 window.repaint();
             }
 
