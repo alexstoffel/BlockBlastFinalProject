@@ -1,4 +1,6 @@
+import javax.swing.*;
 import java.awt.*;
+import java.awt.image.ImageObserver;
 
 // Alex Stoffel
 // This class essentially controls for each block which the player will be placing
@@ -16,16 +18,20 @@ public class Block {
     private int state;
     private boolean isPlaced;
     private boolean isBeingDragged;
+    private Image redStar;
+    private BlockBlastView window;
 
     // Constructor
-    public Block(int[][] piece, int x, int y) {
+    public Block(int[][] piece, int x, int y, BlockBlastView window) {
         this.piece = piece;
         this.x = x;
         this.y = y;
         this.state = 0;
         this.isPlaced = false;
         this.isBeingDragged = false;
+        this.window = window;
         this.color = new Color((int)(Math.random() * 255), (int)(Math.random() * 255), (int)(Math.random() * 255));
+        redStar = new ImageIcon("Resources/redStar.png").getImage();
     }
 
     // Is Clicked Method && placed false
@@ -105,6 +111,8 @@ public class Block {
         } else if (state == 3) { // This means that it has been placed
             drawSquare(g, this.x, this.y);
         }
+        g.drawImage(redStar, x, y , 20, 20, window);
+
     }
 
     // Drawing the block
@@ -115,7 +123,7 @@ public class Block {
                     // Draw the block
                     g.setColor(this.color);
                     g.fillRect(x + SQUARE_SIZE * j, y + SQUARE_SIZE * i, SQUARE_SIZE, SQUARE_SIZE);
-                    g.setColor(Color.white);
+                    g.setColor(Color.WHITE);
                     g.drawRect(x + SQUARE_SIZE * j, y + SQUARE_SIZE * i, SQUARE_SIZE, SQUARE_SIZE);
                 }
             }
