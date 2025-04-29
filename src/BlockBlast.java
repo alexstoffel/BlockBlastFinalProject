@@ -25,6 +25,7 @@ public class BlockBlast implements MouseListener, MouseMotionListener {
     private static final int BOARD_TOP_Y = 130;
     private int score;
     private int numBlasts;
+    private int highScore;
 
 
 
