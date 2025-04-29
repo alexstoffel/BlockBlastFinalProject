@@ -4,7 +4,10 @@
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class BlockBlast implements MouseListener, MouseMotionListener {
     // Instance variables
@@ -25,7 +28,8 @@ public class BlockBlast implements MouseListener, MouseMotionListener {
     private static final int BOARD_TOP_Y = 130;
     private int score;
     private int numBlasts;
-    private int highScore;
+    private static final int NUM_BLOCKS = 31;
+    public ArrayList<Integer[][]> blocksOutline;
 
 
 
@@ -43,6 +47,7 @@ public class BlockBlast implements MouseListener, MouseMotionListener {
         stage = 1;
         unplacedPieces = new ArrayList<Block>();
         blockBeingDragged = null;
+        blocksOutline = new ArrayList<Integer[][]>(NUM_BLOCKS);
 
         // Creating and filling in the board
         // Note - board size is 13 for (INSERT REASON LATER!!!), but all we care about is the 8*8 board
@@ -560,6 +565,22 @@ public class BlockBlast implements MouseListener, MouseMotionListener {
     // Getter for the board
     public int[][] getBoard(){
         return this.board;
+    }
+
+    // Load in the Blocks
+    public void loadBlocks(){
+        Scanner s;
+        int[][] block = new int[PIECE_SIZE][PIECE_SIZE];
+        // This will be reasding in from the file blocks.txt
+        File blockFile = new File ("Resources/blocks.txt");
+        try {
+            s = new Scanner(blockFile);
+        } catch (FileNotFoundException e) {
+            System.out.println("Could not open dictionary file.");
+            return;
+        }
+
+        // For loop which adds blocks
     }
 
 
