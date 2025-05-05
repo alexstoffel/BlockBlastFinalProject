@@ -62,224 +62,6 @@ public class BlockBlast implements MouseListener, MouseMotionListener {
         pieces = new ArrayList<Block>();
         // This will fill the pieces array
         this.loadBlocks();
-//        pieces.add(new Block(new int[][]{
-//                {1, 1, 1, 0, 0},
-//                {0, 0, 0, 0, 0},
-//                {0, 0, 0, 0, 0},
-//                {0, 0, 0, 0, 0},
-//                {0, 0, 0, 0, 0},
-//        }, 0,0, window));
-//        pieces.add(new Block(new int[][]{
-//                {1, 0, 0, 0, 0},
-//                {1, 0, 0, 0, 0},
-//                {1, 0, 0, 0, 0},
-//                {0, 0, 0, 0, 0},
-//                {0, 0, 0, 0, 0},
-//        }, 0,0, window));
-//        pieces.add(new Block(new int[][]{
-//                {1, 1, 1, 1, 0},
-//                {0, 0, 0, 0, 0},
-//                {0, 0, 0, 0, 0},
-//                {0, 0, 0, 0, 0},
-//                {0, 0, 0, 0, 0},
-//        }, 0,0, window));
-//        pieces.add(new Block(new int[][]{
-//                {1, 0, 0, 0, 0},
-//                {1, 0, 0, 0, 0},
-//                {1, 0, 0, 0, 0},
-//                {1, 0, 0, 0, 0},
-//                {0, 0, 0, 0, 0},
-//        }, 0,0, window));
-//        pieces.add(new Block(new int[][]{
-//                {1, 1, 1, 1, 1},
-//                {0, 0, 0, 0, 0},
-//                {0, 0, 0, 0, 0},
-//                {0, 0, 0, 0, 0},
-//                {0, 0, 0, 0, 0},
-//        }, 0,0, window));
-//        pieces.add(new Block(new int[][]{
-//                {1, 0, 0, 0, 0},
-//                {1, 0, 0, 0, 0},
-//                {1, 0, 0, 0, 0},
-//                {1, 0, 0, 0, 0},
-//                {1, 0, 0, 0, 0},
-//        }, 0,0, window));
-//        pieces.add(new Block(new int[][]{
-//                {1, 1, 0, 0, 0},
-//                {0, 1, 1, 0, 0},
-//                {0, 0, 0, 0, 0},
-//                {0, 0, 0, 0, 0},
-//                {0, 0, 0, 0, 0},
-//        }, 0,0, window));
-//        pieces.add(new Block(new int[][]{
-//                {0, 1, 1, 0, 0},
-//                {1, 1, 0, 0, 0},
-//                {0, 0, 0, 0, 0},
-//                {0, 0, 0, 0, 0},
-//                {0, 0, 0, 0, 0},
-//        }, 0,0, window));
-//        pieces.add(new Block(new int[][]{
-//                {1, 0, 0, 0, 0},
-//                {1, 1, 0, 0, 0},
-//                {0, 1, 0, 0, 0},
-//                {0, 0, 0, 0, 0},
-//                {0, 0, 0, 0, 0},
-//        }, 0,0, window));
-//        pieces.add(new Block(new int[][]{
-//                {0, 1, 0, 0, 0},
-//                {1, 1, 0, 0, 0},
-//                {1, 0, 0, 0, 0},
-//                {0, 0, 0, 0, 0},
-//                {0, 0, 0, 0, 0},
-//        }, 0,0, window));
-//        pieces.add(new Block(new int[][]{
-//                {1, 1, 0, 0, 0},
-//                {1, 0, 0, 0, 0},
-//                {0, 0, 0, 0, 0},
-//                {0, 0, 0, 0, 0},
-//                {0, 0, 0, 0, 0},
-//        }, 0,0, window));
-//        pieces.add(new Block(new int[][]{
-//                {1, 1, 0, 0, 0},
-//                {0, 1, 0, 0, 0},
-//                {0, 0, 0, 0, 0},
-//                {0, 0, 0, 0, 0},
-//                {0, 0, 0, 0, 0},
-//        }, 0,0, window));
-//        pieces.add(new Block(new int[][]{
-//                {0, 1, 0, 0, 0},
-//                {1, 1, 0, 0, 0},
-//                {0, 0, 0, 0, 0},
-//                {0, 0, 0, 0, 0},
-//                {0, 0, 0, 0, 0},
-//        }, 0,0, window));
-//        pieces.add(new Block(new int[][]{
-//                {1, 0, 0, 0, 0},
-//                {1, 1, 0, 0, 0},
-//                {0, 0, 0, 0, 0},
-//                {0, 0, 0, 0, 0},
-//                {0, 0, 0, 0, 0},
-//        }, 0,0, window));
-//        pieces.add(new Block(new int[][]{
-//                {1, 1, 1, 0, 0},
-//                {1, 0, 0, 0, 0},
-//                {1, 0, 0, 0, 0},
-//                {0, 0, 0, 0, 0},
-//                {0, 0, 0, 0, 0},
-//        }, 0,0, window));
-//        pieces.add(new Block(new int[][]{
-//                {1, 1, 1, 0, 0},
-//                {0, 0, 1, 0, 0},
-//                {0, 0, 1, 0, 0},
-//                {0, 0, 0, 0, 0},
-//                {0, 0, 0, 0, 0},
-//        }, 0,0, window));
-//        pieces.add(new Block(new int[][]{
-//                {0, 0, 1, 0, 0},
-//                {0, 0, 1, 0, 0},
-//                {1, 1, 1, 0, 0},
-//                {0, 0, 0, 0, 0},
-//                {0, 0, 0, 0, 0},
-//        }, 0,0, window));
-//        pieces.add(new Block(new int[][]{
-//                {1, 0, 0, 0, 0},
-//                {1, 0, 0, 0, 0},
-//                {1, 1, 1, 0, 0},
-//                {0, 0, 0, 0, 0},
-//                {0, 0, 0, 0, 0},
-//        }, 0,0, window));
-//        pieces.add(new Block(new int[][]{
-//                {1, 1, 0, 0, 0},
-//                {1, 0, 0, 0, 0},
-//                {1, 0, 0, 0, 0},
-//                {0, 0, 0, 0, 0},
-//                {0, 0, 0, 0, 0},
-//        }, 0,0, window));
-//        pieces.add(new Block(new int[][]{
-//                {1, 1, 0, 0, 0},
-//                {0, 1, 0, 0, 0},
-//                {0, 1, 0, 0, 0},
-//                {0, 0, 0, 0, 0},
-//                {0, 0, 0, 0, 0},
-//        }, 0,0, window));
-//        pieces.add(new Block(new int[][]{
-//                {1, 1, 1, 0, 0},
-//                {1, 0, 0, 0, 0},
-//                {0, 0, 0, 0, 0},
-//                {0, 0, 0, 0, 0},
-//                {0, 0, 0, 0, 0},
-//        }, 0,0, window));
-//        pieces.add(new Block(new int[][]{
-//                {1, 1, 1, 0, 0},
-//                {0, 0, 1, 0, 0},
-//                {0, 0, 0, 0, 0},
-//                {0, 0, 0, 0, 0},
-//                {0, 0, 0, 0, 0},
-//        }, 0,0, window));
-//        pieces.add(new Block(new int[][]{
-//                {1, 0, 0, 0, 0},
-//                {1, 1, 1, 0, 0},
-//                {0, 0, 0, 0, 0},
-//                {0, 0, 0, 0, 0},
-//                {0, 0, 0, 0, 0},
-//        }, 0,0, window));
-//        pieces.add(new Block(new int[][]{
-//                {0, 0, 1, 0, 0},
-//                {1, 1, 1, 0, 0},
-//                {0, 0, 0, 0, 0},
-//                {0, 0, 0, 0, 0},
-//                {0, 0, 0, 0, 0},
-//        }, 0,0, window));
-//        pieces.add(new Block(new int[][]{
-//                {1, 0, 0, 0, 0},
-//                {1, 0, 0, 0, 0},
-//                {1, 1, 0, 0, 0},
-//                {0, 0, 0, 0, 0},
-//                {0, 0, 0, 0, 0},
-//        }, 0,0, window));
-//        pieces.add(new Block(new int[][]{
-//                {0, 1, 0, 0, 0},
-//                {0, 1, 0, 0, 0},
-//                {1, 1, 0, 0, 0},
-//                {0, 0, 0, 0, 0},
-//                {0, 0, 0, 0, 0},
-//        }, 0,0, window));
-//        pieces.add(new Block(new int[][]{
-//                {1, 1, 1, 0, 0},
-//                {1, 1, 1, 0, 0},
-//                {1, 1, 1, 0, 0},
-//                {0, 0, 0, 0, 0},
-//                {0, 0, 0, 0, 0},
-//        }, 0,0, window));
-//        pieces.add(new Block(new int[][]{
-//                {1, 1, 1, 0, 0},
-//                {0, 1, 0, 0, 0},
-//                {0, 0, 0, 0, 0},
-//                {0, 0, 0, 0, 0},
-//                {0, 0, 0, 0, 0},
-//        }, 0,0, window));
-//        pieces.add(new Block(new int[][]{
-//                {0, 1, 0, 0, 0},
-//                {1, 1, 1, 0, 0},
-//                {0, 0, 0, 0, 0},
-//                {0, 0, 0, 0, 0},
-//                {0, 0, 0, 0, 0},
-//        }, 0,0, window));
-//        pieces.add(new Block(new int[][]{
-//                {1, 0, 0, 0, 0},
-//                {1, 1, 0, 0, 0},
-//                {1, 0, 0, 0, 0},
-//                {0, 0, 0, 0, 0},
-//                {0, 0, 0, 0, 0},
-//        }, 0,0, window));
-//        pieces.add(new Block(new int[][]{
-//                {0, 1, 0, 0, 0},
-//                {1, 1, 0, 0, 0},
-//                {0, 1, 0, 0, 0},
-//                {0, 0, 0, 0, 0},
-//                {0, 0, 0, 0, 0},
-//        }, 0,0, window));
-
     }
 
 
@@ -571,7 +353,6 @@ public class BlockBlast implements MouseListener, MouseMotionListener {
     // Load in the Blocks
     public void loadBlocks(){
         Scanner s;
-        int[][] block = new int[PIECE_SIZE][PIECE_SIZE];
         // This will be reading in from the file blocks.txt
         File blockFile = new File ("Resources/blocks.txt");
         try {
@@ -581,20 +362,29 @@ public class BlockBlast implements MouseListener, MouseMotionListener {
             return;
         }
 
-        // For loop which adds blocks
-        for (int i = 0; i < NUM_BLOCKS; i++){
+        // While loop which will prevent all the out of bounds errors:
+        while (s.hasNextLine()){
+            int[][] block = new int[PIECE_SIZE][PIECE_SIZE];
             // Loop through and add the numbers
             for (int j = 0; j < PIECE_SIZE; j++){
-                for (int k = 0; k < PIECE_SIZE; k++){
-                    // adding in the pieces
-                    System.out.println(s.nextLine());
-//                    block[j][k] = s.nextInt();
+                // Make sure there is a next line
+                if (!s.hasNextLine()){
+                    break;
                 }
+                // Create a line which stores the whole row of block
+                String numbers = s.nextLine();
+                for (int k = 0; k < PIECE_SIZE; k++){
+                    // Adding in the pieces
+                    block[j][k] = Integer.parseInt(numbers.substring(k, k + 1));
+                }
+            }
+            // Add the new block to pieces
+            pieces.add(new Block(block, 0, 0, window));
+
+            // Skipping the blank line
+            if (s.hasNextLine()){
                 s.nextLine();
             }
-            s.nextLine();
-            // Add the new block to possible blocks;
-            this.pieces.add(new Block(block, 0, 0, window));
         }
     }
 
