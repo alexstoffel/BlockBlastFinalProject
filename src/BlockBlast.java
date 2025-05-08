@@ -13,7 +13,7 @@ public class BlockBlast implements MouseListener, MouseMotionListener {
     // Instance variables
     private int[][] board;
     private BlockBlastView window;
-    private static final int BOARD_SIZE = 8;
+    public static final int BOARD_SIZE = 8;
     private static final int PIECE_SIZE = 5;
     private static final int WINDOW_WIDTH = 800;
     private static final int WINDOW_HEIGHT = 800;
@@ -50,8 +50,7 @@ public class BlockBlast implements MouseListener, MouseMotionListener {
         blocksOutline = new ArrayList<Integer[][]>(NUM_BLOCKS);
 
         // Creating and filling in the board
-        // Note - board size is 13 for (INSERT REASON LATER!!!), but all we care about is the 8*8 board
-        board = new int[13][13];
+        board = new int[BOARD_SIZE][BOARD_SIZE];
         for(int i = 0; i < BOARD_SIZE; i++){
             for(int j = 0; j < BOARD_SIZE; j++){
                 board[i][j] = 0;
@@ -165,27 +164,25 @@ public class BlockBlast implements MouseListener, MouseMotionListener {
 
     // This will check for a "blast" every time after a piece is placed
     public void checkBlast(){
-        int rowSum = 0;
-        int colSum = 0;
-        // This will effect the score -- the more blasts per block the more points
+        // This will affect the score -- the more blasts per block the more points
         this.numBlasts = 0;
 
         // For loops to iterate through the board and check for a blast
         for (int i = 0; i < BOARD_SIZE; i++){
-            rowSum = 0;
-            colSum = 0;
+            int rowSum = 0;
+            int colSum = 0;
             for (int j = 0; j < BOARD_SIZE; j++){
                 // Add the values to colSum and rowSum
                 rowSum += this.board[i][j];
                 colSum += this.board[j][i];
             }
             // Check if either colSum or rowSum is equal to eight, meaning a blast must happen
-            if (colSum >= 8){
+            if (colSum >= BOARD_SIZE){
                 // Blast the col
                 this.numBlasts += 1;
                 this.blast("col", i);
             }
-            if (rowSum >= 8){
+            if (rowSum >= BOARD_SIZE){
                 // Blast the row
                 this.numBlasts += 1;
                 this.blast("row", i);
@@ -259,16 +256,16 @@ public class BlockBlast implements MouseListener, MouseMotionListener {
             int x = e.getX();
             int y = e.getY();
             // Find what square this is a part of and click it into place and set X and Y to the top left corner of that square
-            x = (x - BOARD_TOP_X + 10) / 55;
-            y = (y - BOARD_TOP_Y + 10) / 55;
+            x = (x - BOARD_TOP_X + 10) / BlockBlastView.SQUARE_SIZE;
+            y = (y - BOARD_TOP_Y + 10) / BlockBlastView.SQUARE_SIZE;
 
             // Check if it is a valid spot
             if (isValid(blockBeingDragged, x, y)) {
                 // Add the piece to the board
                 addPiece(blockBeingDragged, y, x);
                 // Click the piece into place
-                blockBeingDragged.setX(x * 55 + BOARD_TOP_X);
-                blockBeingDragged.setY(y * 55 + BOARD_TOP_Y);
+                blockBeingDragged.setX(x * BlockBlastView.SQUARE_SIZE + BOARD_TOP_X);
+                blockBeingDragged.setY(y * BlockBlastView.SQUARE_SIZE + BOARD_TOP_Y);
                 // Update that the block has been placed
                 blockBeingDragged.setPlaced(true);
                 // Check for a Blast

@@ -12,11 +12,10 @@ public class BlockBlastView extends JFrame {
     // Array of colors
     private Color[][] colors;
     private static final int WINDOW_WIDTH = 800;
-    private static final int WINDOW_HEIGHT = 800;
+    private static final int WINDOW_HEIGHT = 900;
     private static final int BOARD_TOP_X = 30;
     private static final int BOARD_TOP_Y = 130;
-    private static final int BOARD_SIZE = 8;
-    private static final int SQUARE_SIZE = 55;
+    public static final int SQUARE_SIZE = 55;
     private static final int BOARD_WIDTH = 500;
     private Color[] gameColors;
 
@@ -42,7 +41,7 @@ public class BlockBlastView extends JFrame {
         // Drawing the main background
         g.drawImage(background, 0, 0, WINDOW_WIDTH, WINDOW_HEIGHT, this);
         // Drawing the board
-        g.drawImage(board, 0, 100, BOARD_WIDTH, WINDOW_HEIGHT - 300, this);
+        g.drawImage(board, 0, 100, BOARD_WIDTH, WINDOW_HEIGHT - 400, this);
 
         // Saving the three blocks at the beggining of each round and drawing them AS LONG AS NOT NULL
         if (game.getStage() == 2){
@@ -82,8 +81,8 @@ public class BlockBlastView extends JFrame {
         int[][] board = game.getBoard();
 
         // Print out the board
-        for (int i = 0; i < BOARD_SIZE; i++){
-            for (int j = 0; j < BOARD_SIZE; j++){
+        for (int i = 0; i < BlockBlast.BOARD_SIZE; i++){
+            for (int j = 0; j < BlockBlast.BOARD_SIZE; j++){
                 // If it is a filled square
                 if (board[i][j] == 1) {
                     // Drawing the squares

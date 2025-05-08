@@ -14,6 +14,8 @@ public class Block {
     private Color color;
     private static final int PIECE_SIZE = 5;
     private static final int SQUARE_SIZE = 55;
+    private static final int RGB_VALS = 255;
+    private static final int RED_STAR_SIZE = 20;
     // This wil be a stage tells it where it will be placed
     private int state;
     private boolean isPlaced;
@@ -30,7 +32,7 @@ public class Block {
         this.isPlaced = false;
         this.isBeingDragged = false;
         this.window = window;
-        this.color = new Color((int)(Math.random() * 255), (int)(Math.random() * 255), (int)(Math.random() * 255));
+        this.color = new Color((int)(Math.random() * RGB_VALS), (int)(Math.random() * RGB_VALS), (int)(Math.random() * RGB_VALS));
         redStar = new ImageIcon("Resources/redStar.png").getImage();
     }
 
@@ -111,7 +113,7 @@ public class Block {
         } else if (state == 3) { // This means that it has been placed
             drawSquare(g, this.x, this.y);
         }
-        g.drawImage(redStar, x, y , 20, 20, window);
+        g.drawImage(redStar, x, y , RED_STAR_SIZE, RED_STAR_SIZE, window);
 
     }
 
