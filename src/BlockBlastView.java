@@ -61,12 +61,17 @@ public class BlockBlastView extends JFrame {
 
         // Print our the score
         String score = "SCORE= " + game.getScore();
+        String multiplier = "MULTIPLIER = " + game.getMultiplier();
         g.setFont(new Font("roboto", Font.BOLD, 40));
         for (int i = 0; i < score.length(); i++){
             // Get the multicolor part (this looks cool)
             g.setColor(gameColors[i % gameColors.length]);
-            g.drawString(score.substring(i, i + 1), 510 + i * 25, 200);
+            g.drawString(score.substring(i, i + 1), BOARD_WIDTH + 10 + i * 25, 200);
         }
+        // Draw the multiplier
+        g.setFont(new Font("roboto", Font.BOLD, 20));
+        g.setColor(Color.white);
+        g.drawString(multiplier, BOARD_WIDTH + 10, 270);
 
         // Print Game Over if Game is Over if it is a valid time to do so
         if (game.getUnplacedPieces() != null && game.checkGameOver()){

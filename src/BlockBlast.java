@@ -27,6 +27,8 @@ public class BlockBlast implements MouseListener, MouseMotionListener {
     private static final int BOARD_TOP_X = 30;
     private static final int BOARD_TOP_Y = 130;
     private int score;
+    private int counter;
+    private int multiplier;
     private int numBlasts;
     private static final int NUM_BLOCKS = 31;
     public ArrayList<Integer[][]> blocksOutline;
@@ -48,6 +50,8 @@ public class BlockBlast implements MouseListener, MouseMotionListener {
         unplacedPieces = new ArrayList<Block>();
         blockBeingDragged = null;
         blocksOutline = new ArrayList<Integer[][]>(NUM_BLOCKS);
+        counter = 0;
+        multiplier = 1;
 
         // Creating and filling in the board
         board = new int[BOARD_SIZE][BOARD_SIZE];
@@ -154,11 +158,19 @@ public class BlockBlast implements MouseListener, MouseMotionListener {
                 if (b.getPiece(i,j) == 1) {
                     this.board[i + row][j + col] = b.getPiece(i, j);
                     // Add to the score
-                    this.score += 1;
+                    this.score += multiplier;
                     // Add the color to the block on the board
                     window.setColor(i + row, j + col, b.getColor());
                 }
             }
+        }
+        // Add to counter that a piece is added
+        counter += 1;
+        if (counter == 3){
+            // Reset the multiplier
+            multiplier = 1;
+            // Reset the counter
+            counter = 0;
         }
     }
 
@@ -166,6 +178,7 @@ public class BlockBlast implements MouseListener, MouseMotionListener {
     public void checkBlast(){
         // This will affect the score -- the more blasts per block the more points
         this.numBlasts = 0;
+        boolean rowSumLarger;
 
         // For loops to iterate through the board and check for a blast
         for (int i = 0; i < BOARD_SIZE; i++){
@@ -176,13 +189,15 @@ public class BlockBlast implements MouseListener, MouseMotionListener {
                 rowSum += this.board[i][j];
                 colSum += this.board[j][i];
             }
+            // Check if rowSum is greater than before the col Blast
+            rowSumLarger = rowSum >= BOARD_SIZE;
             // Check if either colSum or rowSum is equal to eight, meaning a blast must happen
             if (colSum >= BOARD_SIZE){
                 // Blast the col
                 this.numBlasts += 1;
                 this.blast("col", i);
             }
-            if (rowSum >= BOARD_SIZE){
+            if (rowSumLarger){
                 // Blast the row
                 this.numBlasts += 1;
                 this.blast("row", i);
@@ -206,8 +221,13 @@ public class BlockBlast implements MouseListener, MouseMotionListener {
                 board[num][i] = 0;
             }
         }
+        // if last blast was less than three ago
+        if (counter < 3){
+            counter = 0;
+            multiplier += 1;
+        }
         // Change the score
-        score += 8 * numBlasts;
+        score += 8 * numBlasts * multiplier;
     }
 
     // Get the score
@@ -345,6 +365,11 @@ public class BlockBlast implements MouseListener, MouseMotionListener {
     // Getter for the board
     public int[][] getBoard(){
         return this.board;
+    }
+
+    // Getter for the multiplier
+    public int getMultiplier(){
+        return this.multiplier;
     }
 
     // Load in the Blocks
