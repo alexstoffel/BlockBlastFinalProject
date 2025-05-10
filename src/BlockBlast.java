@@ -1,5 +1,5 @@
 // Alex Stoffel
-// This class if my backend
+// This class is my backend
 
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -221,7 +221,7 @@ public class BlockBlast implements MouseListener, MouseMotionListener {
                 board[num][i] = 0;
             }
         }
-        // if last blast was less than three ago
+        // If last blast was less than three ago
         if (counter < 3){
             counter = 0;
             multiplier += 1;

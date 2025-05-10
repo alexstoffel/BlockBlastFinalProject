@@ -1,9 +1,9 @@
-import javax.swing.*;
-import java.awt.*;
-import java.awt.image.ImageObserver;
-
 // Alex Stoffel
 // This class essentially controls for each block which the player will be placing
+
+import javax.swing.*;
+import java.awt.*;
+
 public class Block {
     // This will be the template for each block
     private int[][] piece;
