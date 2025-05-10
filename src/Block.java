@@ -6,12 +6,12 @@ import java.awt.*;
 
 public class Block {
     // This will be the template for each block
-    private int[][] piece;
+    private final int[][] piece;
     // Top left and right corners
     private int x;
     private int y;
     // This will be the color of the block
-    private Color color;
+    private final Color color;
     private static final int PIECE_SIZE = 5;
     private static final int SQUARE_SIZE = 55;
     private static final int RGB_VALS = 255;
@@ -20,8 +20,8 @@ public class Block {
     private int state;
     private boolean isPlaced;
     private boolean isBeingDragged;
-    private Image redStar;
-    private BlockBlastView window;
+    private final Image redStar;
+    private final BlockBlastView window;
 
     // Constructor
     public Block(int[][] piece, int x, int y, BlockBlastView window) {
@@ -32,7 +32,7 @@ public class Block {
         this.isPlaced = false;
         this.isBeingDragged = false;
         this.window = window;
-        this.color = new Color((int)(Math.random() * RGB_VALS), (int)(Math.random() * RGB_VALS), (int)(Math.random() * RGB_VALS));
+        this.color = new Color((int) (Math.random() * RGB_VALS), (int) (Math.random() * RGB_VALS), (int) (Math.random() * RGB_VALS));
         redStar = new ImageIcon("Resources/redStar.png").getImage();
     }
 
@@ -40,9 +40,7 @@ public class Block {
     public boolean isClicked(int mouse_x, int mouse_y) {
         // Must be clicked from the top left of the box
         if (this.x < mouse_x && this.x + SQUARE_SIZE > mouse_x) {
-            if ((this.y < mouse_y && this.y + SQUARE_SIZE > mouse_y) && !this.isPlaced) {
-                return true;
-            }
+            return (this.y < mouse_y && this.y + SQUARE_SIZE > mouse_y) && !this.isPlaced;
         }
         return false;
     }
@@ -97,7 +95,7 @@ public class Block {
     }
 
     // Getting access to the color
-    public Color getColor(){
+    public Color getColor() {
         return this.color;
     }
 
@@ -113,7 +111,7 @@ public class Block {
         } else if (state == 3) { // This means that it has been placed
             drawSquare(g, this.x, this.y);
         }
-        g.drawImage(redStar, x, y , RED_STAR_SIZE, RED_STAR_SIZE, window);
+        g.drawImage(redStar, x, y, RED_STAR_SIZE, RED_STAR_SIZE, window);
 
     }
 

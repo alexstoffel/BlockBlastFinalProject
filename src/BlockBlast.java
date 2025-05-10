@@ -11,13 +11,13 @@ import java.util.Scanner;
 
 public class BlockBlast implements MouseListener, MouseMotionListener {
     // Instance variables
-    private int[][] board;
-    private BlockBlastView window;
+    private final int[][] board;
+    private final BlockBlastView window;
     public static final int BOARD_SIZE = 8;
     private static final int PIECE_SIZE = 5;
     private static final int WINDOW_WIDTH = 800;
     private static final int WINDOW_HEIGHT = 800;
-    private ArrayList<Block> pieces;
+    private final ArrayList<Block> pieces;
     private boolean gameOver;
     private int stage;
     private ArrayList<Block> unplacedPieces;
@@ -34,9 +34,8 @@ public class BlockBlast implements MouseListener, MouseMotionListener {
     public ArrayList<Integer[][]> blocksOutline;
 
 
-
     // Constructor
-    public BlockBlast(){
+    public BlockBlast() {
         this.score = 0; // This is important to have here because I want score printed out immediately
         window = new BlockBlastView(this);
 
@@ -55,8 +54,8 @@ public class BlockBlast implements MouseListener, MouseMotionListener {
 
         // Creating and filling in the board
         board = new int[BOARD_SIZE][BOARD_SIZE];
-        for(int i = 0; i < BOARD_SIZE; i++){
-            for(int j = 0; j < BOARD_SIZE; j++){
+        for (int i = 0; i < BOARD_SIZE; i++) {
+            for (int j = 0; j < BOARD_SIZE; j++) {
                 board[i][j] = 0;
             }
         }
@@ -66,7 +65,6 @@ public class BlockBlast implements MouseListener, MouseMotionListener {
         // This will fill the pieces array
         this.loadBlocks();
     }
-
 
 
     // Play Round function, which will play out a round
@@ -79,15 +77,14 @@ public class BlockBlast implements MouseListener, MouseMotionListener {
     }
 
 
-
     // Will return three random pieces from pieces arrayList
     public ArrayList<Block> getThreePieces() {
         // ArrayList that will store them
         ArrayList<Block> p = new ArrayList<Block>(3);
         // For loop that will run through 3 times
-        for (int i = 0; i < 3; i++){
+        for (int i = 0; i < 3; i++) {
             // Add a new block which creates coppy of one from main bank pieces
-            p.add(new Block(this.pieces.get((int)(Math.random() * this.pieces.size())).getBlock(), 0, 0, window));
+            p.add(new Block(this.pieces.get((int) (Math.random() * this.pieces.size())).getBlock(), 0, 0, window));
             // Set the state so it knows where to draw itself
             p.get(i).setState(i);
         }
@@ -95,25 +92,24 @@ public class BlockBlast implements MouseListener, MouseMotionListener {
     }
 
 
-
     // Will return true if game is over
-    public boolean checkGameOver(){
+    public boolean checkGameOver() {
         // Create new ArrayList which will only have the non-null values in unplaced pieces
         ArrayList<Block> nonNull = new ArrayList<Block>();
-        for (int i = 0; i < unplacedPieces.size(); i++){
+        for (int i = 0; i < unplacedPieces.size(); i++) {
             // If it is not null, add
-            if (unplacedPieces.get(i) != null){
+            if (unplacedPieces.get(i) != null) {
                 nonNull.add(unplacedPieces.get(i));
             }
         }
         // Check for every block in unplaced box if there are any moves possible
-        for (Block block: nonNull){
+        for (Block block : nonNull) {
             // If the block isn't placed yet
-            if (!block.isPlaced()){
-                for (int i = 0; i < BOARD_SIZE; i++){
-                    for (int j = 0; j < BOARD_SIZE; j++){
+            if (!block.isPlaced()) {
+                for (int i = 0; i < BOARD_SIZE; i++) {
+                    for (int j = 0; j < BOARD_SIZE; j++) {
                         // If there is a valid move, return false to game over
-                        if (isValid(block, i, j)){
+                        if (isValid(block, i, j)) {
                             return false;
                         }
                     }
@@ -125,22 +121,22 @@ public class BlockBlast implements MouseListener, MouseMotionListener {
     }
 
     // This method will check if the spot is valid
-    public boolean isValid(Block b, int col, int row){
+    public boolean isValid(Block b, int col, int row) {
         // Check for out of bounds errors
-        for (int i = 0; i < PIECE_SIZE; i++){
-            for (int j = 0; j < PIECE_SIZE; j++){
-                if (b.getPiece(i, j) == 1){
+        for (int i = 0; i < PIECE_SIZE; i++) {
+            for (int j = 0; j < PIECE_SIZE; j++) {
+                if (b.getPiece(i, j) == 1) {
                     // Only check for cells that have value of 1 (are prt of the shape)
                     int board_row = i + row;
                     int board_col = j + col;
 
                     // Check if it is out of bounds
-                    if (board_row < 0 || board_row >= BOARD_SIZE || board_col < 0 || board_col >= BOARD_SIZE){
+                    if (board_row < 0 || board_row >= BOARD_SIZE || board_col < 0 || board_col >= BOARD_SIZE) {
                         return false;
                     }
 
                     // Check for overlap
-                    if (this.board[board_row][board_col] == 1){
+                    if (this.board[board_row][board_col] == 1) {
                         return false;
                     }
 
@@ -151,11 +147,11 @@ public class BlockBlast implements MouseListener, MouseMotionListener {
     }
 
     // This will add the piece to the board
-    public void addPiece(Block b, int row, int col){
-        for (int i = 0; i < PIECE_SIZE; i++){
-            for (int j = 0; j < PIECE_SIZE; j++){
+    public void addPiece(Block b, int row, int col) {
+        for (int i = 0; i < PIECE_SIZE; i++) {
+            for (int j = 0; j < PIECE_SIZE; j++) {
                 // Only add it if it holds a value
-                if (b.getPiece(i,j) == 1) {
+                if (b.getPiece(i, j) == 1) {
                     this.board[i + row][j + col] = b.getPiece(i, j);
                     // Add to the score
                     this.score += multiplier;
@@ -166,7 +162,7 @@ public class BlockBlast implements MouseListener, MouseMotionListener {
         }
         // Add to counter that a piece is added
         counter += 1;
-        if (counter == 3){
+        if (counter == 3) {
             // Reset the multiplier
             multiplier = 1;
             // Reset the counter
@@ -175,16 +171,16 @@ public class BlockBlast implements MouseListener, MouseMotionListener {
     }
 
     // This will check for a "blast" every time after a piece is placed
-    public void checkBlast(){
+    public void checkBlast() {
         // This will affect the score -- the more blasts per block the more points
         this.numBlasts = 0;
         boolean rowSumLarger;
 
         // For loops to iterate through the board and check for a blast
-        for (int i = 0; i < BOARD_SIZE; i++){
+        for (int i = 0; i < BOARD_SIZE; i++) {
             int rowSum = 0;
             int colSum = 0;
-            for (int j = 0; j < BOARD_SIZE; j++){
+            for (int j = 0; j < BOARD_SIZE; j++) {
                 // Add the values to colSum and rowSum
                 rowSum += this.board[i][j];
                 colSum += this.board[j][i];
@@ -192,12 +188,12 @@ public class BlockBlast implements MouseListener, MouseMotionListener {
             // Check if rowSum is greater than before the col Blast
             rowSumLarger = rowSum >= BOARD_SIZE;
             // Check if either colSum or rowSum is equal to eight, meaning a blast must happen
-            if (colSum >= BOARD_SIZE){
+            if (colSum >= BOARD_SIZE) {
                 // Blast the col
                 this.numBlasts += 1;
                 this.blast("col", i);
             }
-            if (rowSumLarger){
+            if (rowSumLarger) {
                 // Blast the row
                 this.numBlasts += 1;
                 this.blast("row", i);
@@ -206,23 +202,22 @@ public class BlockBlast implements MouseListener, MouseMotionListener {
     }
 
 
-
     // the Blast function
-    public void blast(String str, int num){
+    public void blast(String str, int num) {
         // If str is col, blast the column
-        if (str.equals("col")){
-            for (int i = 0; i < BOARD_SIZE; i++){
+        if (str.equals("col")) {
+            for (int i = 0; i < BOARD_SIZE; i++) {
                 // Setting each block in that col to 0
                 board[i][num] = 0;
             }
-        }else{
-            for (int i = 0; i < BOARD_SIZE; i++){
+        } else {
+            for (int i = 0; i < BOARD_SIZE; i++) {
                 // Setting each block in the row to 0
                 board[num][i] = 0;
             }
         }
         // If last blast was less than three ago
-        if (counter < 3){
+        if (counter < 3) {
             counter = 0;
             multiplier += 1;
         }
@@ -231,17 +226,17 @@ public class BlockBlast implements MouseListener, MouseMotionListener {
     }
 
     // Get the score
-    public int getScore(){
+    public int getScore() {
         return this.score;
     }
 
     // Get the game stage
-    public int getStage(){
+    public int getStage() {
         return this.stage;
     }
 
     // Get the unplaced pieces
-    public ArrayList<Block> getUnplacedPieces(){
+    public ArrayList<Block> getUnplacedPieces() {
         return this.unplacedPieces;
     }
 
@@ -258,8 +253,8 @@ public class BlockBlast implements MouseListener, MouseMotionListener {
         int y = e.getY();
 
         // Loop through all the blocks
-        for (Block block: unplacedPieces){
-            if (block.isClicked(x, y)){
+        for (Block block : unplacedPieces) {
+            if (block.isClicked(x, y)) {
                 blockBeingDragged = block;
                 blockBeingDragged_InitialState = block.getState();
                 block.setIsBeingDragged(true);
@@ -303,20 +298,20 @@ public class BlockBlast implements MouseListener, MouseMotionListener {
             // Check to see if all unplacedPieces have been placed, and if they have start a new round
             boolean newRound = true;
             // Iterate through and if any unplaced piece hasnt been placed, no new round
-            for (int i = 0; i < 3; i++){
-                if (!unplacedPieces.get(i).isPlaced()){
+            for (int i = 0; i < 3; i++) {
+                if (!unplacedPieces.get(i).isPlaced()) {
                     // No new round
                     newRound = false;
                     break;
                 }
             }
             // If there is a newRound possible, set round to 0 and this will begin a new round and add more to unplaced pieces
-            if (newRound){
+            if (newRound) {
                 this.playRound();
             }
 
             // Check if the Game is Over only if Unplaced pieces isnt null
-            if (this.unplacedPieces != null && this.checkGameOver()){
+            if (this.unplacedPieces != null && this.checkGameOver()) {
                 this.gameOver = true;
                 window.repaint();
             }
@@ -340,8 +335,8 @@ public class BlockBlast implements MouseListener, MouseMotionListener {
         int y = e.getY();
 
         // Check each block if it is being dragged currently
-        for (Block block : this.unplacedPieces){
-            if(block.isBeingDragged()){
+        for (Block block : this.unplacedPieces) {
+            if (block.isBeingDragged()) {
                 // This means it is no longer an "unplaced piece"
                 block.setState(3);
                 // Updating where the box is to where the mouse is (it will follow mouse off the window too)
@@ -363,20 +358,20 @@ public class BlockBlast implements MouseListener, MouseMotionListener {
 
 
     // Getter for the board
-    public int[][] getBoard(){
+    public int[][] getBoard() {
         return this.board;
     }
 
     // Getter for the multiplier
-    public int getMultiplier(){
+    public int getMultiplier() {
         return this.multiplier;
     }
 
     // Load in the Blocks
-    public void loadBlocks(){
+    public void loadBlocks() {
         Scanner s;
         // This will be reading in from the file blocks.txt
-        File blockFile = new File ("Resources/blocks.txt");
+        File blockFile = new File("Resources/blocks.txt");
         try {
             s = new Scanner(blockFile);
         } catch (FileNotFoundException e) {
@@ -385,17 +380,17 @@ public class BlockBlast implements MouseListener, MouseMotionListener {
         }
 
         // While loop which will prevent all the out of bounds errors:
-        while (s.hasNextLine()){
+        while (s.hasNextLine()) {
             int[][] block = new int[PIECE_SIZE][PIECE_SIZE];
             // Loop through and add the numbers
-            for (int j = 0; j < PIECE_SIZE; j++){
+            for (int j = 0; j < PIECE_SIZE; j++) {
                 // Make sure there is a next line
-                if (!s.hasNextLine()){
+                if (!s.hasNextLine()) {
                     break;
                 }
                 // Create a line which stores the whole row of block
                 String numbers = s.nextLine();
-                for (int k = 0; k < PIECE_SIZE; k++){
+                for (int k = 0; k < PIECE_SIZE; k++) {
                     // Adding in the pieces
                     block[j][k] = Integer.parseInt(numbers.substring(k, k + 1));
                 }
@@ -404,12 +399,11 @@ public class BlockBlast implements MouseListener, MouseMotionListener {
             pieces.add(new Block(block, 0, 0, window));
 
             // Skipping the blank line
-            if (s.hasNextLine()){
+            if (s.hasNextLine()) {
                 s.nextLine();
             }
         }
     }
-
 
 
     // The Main function
